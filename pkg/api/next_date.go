@@ -8,10 +8,10 @@ import (
 	"time"
 )
 
-// afterNow returns true if date is after now (both truncated to day)
-func afterNow(now, date time.Time) bool {
-	now = now.Truncate(24 * time.Hour)
-	date = date.Truncate(24 * time.Hour)
+// afterNow returns true if date is after now (both normalized to day)
+func afterNow(date, now time.Time) bool {
+	date = time.Date(date.Year(), date.Month(), date.Day(), 0, 0, 0, 0, date.Location())
+	now = time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 	return date.After(now)
 }
 
